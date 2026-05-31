@@ -1,0 +1,25 @@
+# Frontend
+node_modules/
+dist/
+.angular/
+*.log
+.DS_Store
+
+# Backend
+target/
+*.class
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*
+!.env.example
+
+# Local OS/editor noise
+Thumbs.db

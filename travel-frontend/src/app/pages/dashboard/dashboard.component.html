@@ -1,0 +1,143 @@
+<section class="dashboard-page">
+  <div class="dashboard-hero">
+    <div>
+      <p class="eyebrow">Trip dashboard</p>
+      <h1>Build the route, then fill in the days.</h1>
+      <p class="hero-text">Create plans, track travel days, and keep itinerary items close to each destination.</p>
+    </div>
+
+    <div class="hero-actions">
+      <button type="button" class="ghost-button" (click)="logout()">Logout</button>
+      <button type="button" class="primary-button" (click)="showNewPlanForm = !showNewPlanForm">
+        {{ showNewPlanForm ? 'Close form' : 'New travel plan' }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert">
+    {{ error }}
+  </div>
+
+  <div class="stats-row">
+    <article>
+      <span>Plans</span>
+      <strong>{{ travelPlans.length }}</strong>
+    </article>
+    <article>
+      <span>Total days</span>
+      <strong>{{ getPlannedDays() }}</strong>
+    </article>
+    <article>
+      <span>Itinerary items</span>
+      <strong>{{ getItineraryCount() }}</strong>
+    </article>
+  </div>
+
+  <form *ngIf="showNewPlanForm" class="plan-form" (ngSubmit)="createTravelPlan()">
+    <div class="form-heading">
+      <p>Create plan</p>
+      <h2>Where are you going next?</h2>
+    </div>
+
+    <label>
+      <span>Destination</span>
+      <input type="text" [(ngModel)]="newPlan.destination" name="destination" placeholder="e.g. Copenhagen" />
+    </label>
+
+    <label>
+      <span>Start date</span>
+      <input type="date" [(ngModel)]="newPlan.startDate" name="startDate" />
+    </label>
+
+    <label>
+      <span>End date</span>
+      <input type="date" [(ngModel)]="newPlan.endDate" name="endDate" />
+    </label>
+
+    <button type="submit" class="primary-button">Create plan</button>
+  </form>
+
+  <div *ngIf="loading" class="loading-state">
+    Loading travel plans...
+  </div>
+
+  <div *ngIf="!loading && travelPlans.length === 0" class="empty-state">
+    <h2>No trips yet</h2>
+    <p>Create your first travel plan and start filling in the days.</p>
+    <button type="button" class="primary-button" (click)="showNewPlanForm = true">Create first plan</button>
+  </div>
+
+  <div *ngIf="!loading && travelPlans.length > 0" class="plans-grid">
+    <article *ngFor="let plan of travelPlans" class="plan-card">
+      <header>
+        <div>
+          <span class="date-range">{{ plan.startDate }} - {{ plan.endDate }}</span>
+          <h2>{{ plan.destination }}</h2>
+        </div>
+        <strong>{{ getTotalDays(plan.startDate, plan.endDate) }} days</strong>
+      </header>
+
+      <section class="itinerary-list">
+        <div class="section-title">
+          <span>Itinerary</span>
+          <button type="button" (click)="addItinerary(plan)">Add</button>
+        </div>
+
+        <p *ngIf="plan.itineraries.length === 0" class="empty-note">
+          No itinerary items yet.
+        </p>
+
+        <article *ngFor="let itinerary of plan.itineraries" class="itinerary-item">
+          <div class="item-date">{{ itinerary.date }}</div>
+          <div class="item-body">
+            <h3>{{ itinerary.title }}</h3>
+            <p>{{ itinerary.location }}</p>
+            <small *ngIf="itinerary.description">{{ itinerary.description }}</small>
+          </div>
+          <button type="button" class="icon-button danger" (click)="deleteItinerary(plan.id, itinerary.id)" aria-label="Delete itinerary">
+            x
+          </button>
+        </article>
+      </section>
+
+      <footer>
+        <button type="button" class="secondary-button" (click)="addItinerary(plan)">Add itinerary</button>
+        <button type="button" class="danger-button" (click)="deleteTravelPlan(plan.id)">Delete</button>
+      </footer>
+    </article>
+  </div>
+
+  <div *ngIf="showEditItinerary" class="modal-backdrop">
+    <form class="modal" (ngSubmit)="saveItinerary()">
+      <div class="form-heading">
+        <p>Itinerary item</p>
+        <h2>Add a plan for the day</h2>
+      </div>
+
+      <label>
+        <span>Date</span>
+        <input type="date" [(ngModel)]="newItinerary.date" name="itineraryDate" />
+      </label>
+
+      <label>
+        <span>Activity title</span>
+        <input type="text" [(ngModel)]="newItinerary.title" name="itineraryTitle" placeholder="Museum visit" />
+      </label>
+
+      <label>
+        <span>Location</span>
+        <input type="text" [(ngModel)]="newItinerary.location" name="itineraryLocation" placeholder="City center" />
+      </label>
+
+      <label>
+        <span>Description</span>
+        <textarea [(ngModel)]="newItinerary.description" name="itineraryDescription" rows="3" placeholder="Add a short note"></textarea>
+      </label>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-button" (click)="showEditItinerary = false">Cancel</button>
+        <button type="submit" class="primary-button">Save itinerary</button>
+      </div>
+    </form>
+  </div>
+</section>

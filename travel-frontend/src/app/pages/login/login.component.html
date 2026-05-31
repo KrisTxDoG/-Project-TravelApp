@@ -1,0 +1,61 @@
+<section class="auth-page">
+  <div class="auth-visual">
+    <p class="eyebrow">Welcome back</p>
+    <h1>Your next route is waiting.</h1>
+    <p>
+      Sign in to continue shaping destinations, dates, and itinerary notes in one tidy workspace.
+    </p>
+
+    <div class="mini-board">
+      <div>
+        <span></span>
+        <strong>Kyoto</strong>
+        <small>Mar 18 - Mar 22</small>
+      </div>
+      <div>
+        <span></span>
+        <strong>Seoul</strong>
+        <small>Apr 05 - Apr 09</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-card">
+    <div class="card-heading">
+      <p>Travel Planner</p>
+      <h2>Log in</h2>
+    </div>
+
+    <form (ngSubmit)="login()" class="auth-form">
+      <div *ngIf="error" class="alert">
+        {{ error }}
+      </div>
+
+      <label>
+        <span>Username</span>
+        <input
+          type="text"
+          [(ngModel)]="username"
+          name="username"
+          placeholder="Enter your username"
+          autocomplete="username"
+        />
+      </label>
+
+      <label>
+        <span>Password</span>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+        />
+      </label>
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Logging in...' : 'Login' }}
+      </button>
+    </form>
+  </div>
+</section>

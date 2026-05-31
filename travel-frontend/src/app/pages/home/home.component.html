@@ -1,0 +1,52 @@
+<section class="home-page">
+  <div class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Itinerary workspace</p>
+      <h1>Plan each travel day with a calmer, clearer board.</h1>
+      <p class="hero-text">
+        Keep destinations, dates, and day plans in one clean place before your next trip starts.
+      </p>
+      <div class="hero-actions">
+        <a routerLink="/login" class="primary-link">Start planning</a>
+        <a routerLink="/dashboard" class="secondary-link">View plans</a>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-label="Travel plan preview">
+      <div class="visual-header">
+        <span>Tokyo spring route</span>
+        <strong>5 days</strong>
+      </div>
+      <div class="route-line">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="day-stack">
+        <article>
+          <small>Day 01</small>
+          <b>Arrive at Shibuya</b>
+          <p>Check in, dinner, evening walk.</p>
+        </article>
+        <article>
+          <small>Day 02</small>
+          <b>Asakusa and river</b>
+          <p>Temple visit, cafe stop, skyline ferry.</p>
+        </article>
+        <article>
+          <small>Day 03</small>
+          <b>Museum day</b>
+          <p>Morning gallery, quiet lunch, market.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+    <article *ngFor="let feature of features" class="feature-card">
+      <span class="feature-icon">{{ feature.icon }}</span>
+      <h2>{{ feature.title }}</h2>
+      <p>{{ feature.description }}</p>
+    </article>
+  </div>
+</section>

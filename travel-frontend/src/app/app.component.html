@@ -1,0 +1,18 @@
+<div class="app-shell">
+  <header class="topbar">
+    <a routerLink="/" class="brand" aria-label="Travel Planner home">
+      <span class="brand-mark">TP</span>
+      <span class="brand-text">Travel Planner</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a routerLink="/">Overview</a>
+      <a routerLink="/dashboard">Plans</a>
+      <a routerLink="/login" class="nav-action">Login</a>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
