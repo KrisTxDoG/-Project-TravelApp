@@ -10,10 +10,10 @@ import java.util.Date;
 
 @Service
 public class JwtService {
-    @Value("${jwt.secret:change-this-dev-secret-before-deploying}")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
-    @Value("${jwt.expiration:86400000}")
+    @Value("${jwt.expiration}")
     private long jwtExpiration;
 
     private SecretKey getSigningKey() {
